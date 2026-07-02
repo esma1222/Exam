@@ -11,6 +11,7 @@ single RPC on load and records each completed attempt back to the database.
 
 | File | Purpose |
 | --- | --- |
+| `index.html` | The served entry point (identical copy of the `.dc.html`, so static hosts serve the app at `/`). |
 | `Simulazioni Esame OAC.dc.html` | The app (a `dc` component rendered by `support.js`). |
 | `support.js` | The `dc` runtime (loads React + Babel, boots the component). |
 | `supabase-config.js` | Supabase URL + publishable key used by the app. |
@@ -82,6 +83,18 @@ python3 -m http.server 8000
 
 `support.js` loads React and Babel from unpkg, so an internet connection is
 needed on first load.
+
+## Deploying (Vercel / any static host)
+
+This is a plain static site — no build step. Deploy the repository root as-is.
+`index.html` is served at `/`, so the app loads at the deployment root.
+
+- On Vercel, use the **"Other"** framework preset (Build Command: none,
+  Output Directory: root). A `404: NOT_FOUND` at the root means there is no
+  `index.html` being served — make sure the deployment includes it and points
+  at this branch.
+- `index.html` is an exact copy of `Simulazioni Esame OAC.dc.html`; if you edit
+  the app, update both (or copy one over the other).
 
 ## Re-seeding the database
 
